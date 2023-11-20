@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Secure Checkout</title>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <meta name="theme-color" content="#ffffff">
+   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        type="text/css">
+    <link href="css/styleguide.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+
+    <style>
+        .overlay_checkout {
+            position: fixed; 
+            z-index: 990;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.57);
+        }
+
+        .img_sec {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: 50%;
+            margin-left: -50px;
+            top: 50%;
+            margin-top: -50px;
+        }
+
+        .loader,
+        .loader:after {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+        }
+
+        .loader {
+            margin: 0px auto;
+            font-size: 10px;
+            position: relative;
+            text-indent: -9999em;
+            border-top: 1.1em solid rgba(255, 255, 255, 0.6);
+            border-right: 1.1em solid rgba(255, 255, 255, 0.6);
+            border-bottom: 1.1em solid rgba(255, 255, 255, 0.6);
+            border-left: 1.1em solid #ffffff;
+            -webkit-transform: translateZ(0);
+            -ms-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-animation: load8 1.1s infinite linear;
+            animation: load8 1.1s infinite linear;
+        }
+
+        @-webkit-keyframes load8 {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes load8 {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        .footer ul li a {
+            display: inline-block;
+            margin: 0;
+            padding: 70px 10px;
+            padding-bottom: 0px !important;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 13px;
+            line-height: 26px;
+            font-feature-settings: 'ss03' on;
+            color: #233567;
+            opacity: 0.9;
+        }
+
+        .footer ul li {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <input type="hidden" id="hitId" name="hitId" value="">
+    <div class="overlay_checkout" id="overlay_checkout" style="display:none;">
+        <div class="img_sec">
+            <div class="loader">Loading...</div>
+        </div>
+    </div>
+
+    <div class="container" style="margin-top: 20px;">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="top_blue_strip">
+                    <div class="row">
+                        <div class="col">
+                            <p><img alt="green_check" src="images/green_check.jpg" />30-Days Money Back Guarantee
+                            </p>
+                        </div>
+                        <div class="col text-center">
+                            <p><img alt="yellow_lock" src="images/yellow_lock.jpg" />100% Secure Order</p>
+                        </div>
+                        <div class="col text-right">
+                            <p><img alt="Get Instant Access" src="images/access.jpg" />Get Instant Access</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="secure_checkout">
+                    <div class="row">
+                        <div class="col-6">
+                            <h3><strong>Secure</strong>Checkout</h3>
+                        </div>
+                        <div class="col-6">
+                            <!-- <select class="form-control">
+                                <option>English</option>
+                            </select> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-md-12">
+            <div class="timer text-center">
+                <div class="row">
+                    <div class="col">
+                        <h1>WARNING: This Item Is In <u>Very High</u> Demand!</h1>
+                        <h2>Your Spot Has Been Reserved For The Next</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div id="clockdiv">
+                            <div> <span class="days"></span>
+                                <div class="smalltext">Days</div>
+                            </div>
+                            <div> <span class="hours"></span>
+                                <div class="smalltext">Hours</div>
+                            </div>
+                            <div> <span class="minutes"></span>
+                                <div class="smalltext">Minutes</div>
+                            </div>
+                            <div> <span class="seconds"></span>
+                                <div class="smalltext">Seconds</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="expired">
+                <h2>Your offer has expired.</h2>
+            </div>
+        </div> -->
+            <!-- <div class="col-md-12">
+            <div class="secure_checkout_btn">
+                <div class="row">
+                    <div class="col">
+                        <button>Secure Checkout &nbsp;<i class="fa fa-lock"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        </div>
+    </div>
+    <div class="container">
+        <form id="orderForm" name="orderForm" action="" method="post">
+            <div class="row">
+                <div class="col-md-6 pr30">
+
+                    <div class="row">
+                        <div class="col">
+                            <p class="icon_heading"><i class="fa fa-user"></i> Customer Information</p>
+                           
+                            <div class="form-group">
+                                <label for="email">Email Address </label>
+                                <input type="email" name="email" class="form-control" placeholder="Email Address"
+                                    id="email" value="" >
+                                    <p class="error-msg">The Email is requierd</p>
+                            </div>
+                            
+                           
+                            <p class="icon_heading"><i class="fa fa-tags"></i> Billing Information</p>
+                            <div class="alert alert-danger" id="ccerror" style="display:none;">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cardholder">Your Full Name </label>
+                                <input type="text" name="name" class="form-control" placeholder="Full Name"
+                                    id="cardholder" >
+                                    <p class="error-msg">The Full Name is required</p>
+                            </div>
+                            <div class="form-group position-relative mb-4">
+                                <!-- <span id="card-combined" class="ex2-input"></span> card-wrap -->
+                                <label class="float-right position-absolute card-label">
+                                    <svg id="CardIcon-svg" focusable="false" viewBox="0 0 80 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <g id="Page-1" stroke="none" stroke-width="1" fill="#000" fill-rule="evenodd">
+                                            <g id="Desktop" transform="translate(-262.000000, -835.000000)" class="CardIcon-fill">
+                                                <g id="card-new4" transform="translate(262.000000, 835.000000)">
+                                                    <g id="card-alert-copy">
+                                                        <path d="M6,0 L72,8.8817842e-16 C75.3137085,2.79460044e-16 78,2.6862915 78,6 L78,46 C78,49.3137085 75.3137085,52 72,52 L6,52 C2.6862915,52 1.37284885e-14,49.3137085 1.33226763e-14,46 L1.33226763e-14,6 C1.2916864e-14,2.6862915 2.6862915,1.4968968e-15 6,8.8817842e-16 Z M9,17 C7.34314575,17 6,18.3431458 6,20 C6,21.6568542 7.34314575,23 9,23 L17,23 C18.6568542,23 20,21.6568542 20,20 C20,18.3431458 18.6568542,17 17,17 L9,17 Z M26,17 C24.3431458,17 23,18.3431458 23,20 C23,21.6568542 24.3431458,23 26,23 L34,23 C35.6568542,23 37,21.6568542 37,20 C37,18.3431458 35.6568542,17 34,17 L26,17 Z M43,17 C41.3431458,17 40,18.3431458 40,20 C40,21.6568542 41.3431458,23 43,23 L51,23 C52.6568542,23 54,21.6568542 54,20 C54,18.3431458 52.6568542,17 51,17 L43,17 Z M60,17 C58.3431458,17 57,18.3431458 57,20 C57,21.6568542 58.3431458,23 60,23 L68,23 C69.6568542,23 71,21.6568542 71,20 C71,18.3431458 69.6568542,17 68,17 L60,17 Z M9.32432432,30.6521739 C7.66747007,30.6521739 6.32432432,31.9953197 6.32432432,33.6521739 C6.32432432,35.3090282 7.66747007,36.6521739 9.32432432,36.6521739 L31.3243243,36.6521739 C32.9811786,36.6521739 34.3243243,35.3090282 34.3243243,33.6521739 C34.3243243,31.9953197 32.9811786,30.6521739 31.3243243,30.6521739 L9.32432432,30.6521739 Z" id="Combined-Shape"></path>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                    </label>
+                                <input type="number" name="ccnum" maxlength="16" class="form-control"
+                                    placeholder="Card Number" id="cardnumber" autocomplete="false" >
+
+                                    <p class="error-msg special">The Card Number is requierd</p>    
+                            </div>
+
+                            <div class="row form_rows">
+                                <div class="col pr5">
+                                    <div class="form-group">
+                                        <label for="Country">Country </label>
+                                        <select name="countryId" id="Country" class="form-control">
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hide_mobile">
+                        <div class="row">
+                            <div class="col">
+                                <div class="mbc"> <img alt="mbg" class="mbg_logo" src="images/mbg-1.png" />
+                                    <h4>Your purchase is backed by our <u>30 day unconditional</u> money back guarantee.
+                                    </h4>
+                                    <p> Your purchase is backed by our 30 day unconditional money back guarantee.
+                                        <b><u><i>If for any reason you’re not 100% satisfied</i></u> with your purchase,
+                                            just send us an email</b> and
+                                        we’re going to issue you a full refund within 24 hours directly back to your
+                                        credit card.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="show_mobile">
+                        <div class="row">
+                            <div class="col">
+                                <div class="mbc"> <img alt="mbg" class="mbg_logo" src="images/mbg-1.png" />
+                                    <h4>Your purchase is backed by our <u>30 day unconditional</u> money back guarantee
+                                    </h4>
+                                    <p> Your purchase is backed by our 30 day unconditional money back guarantee.
+                                        <u><b><i>If for any reason you’re not 100% satisfied</i></u> with your purchase,
+                                        just send us an email </b> and we’re
+                                        going to issue you a full refund within 24 hours directly
+                                        back to your credit card.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 pl30">
+                    <div class="row">
+                        
+                    </div>
+                    <div class="hide_mobile">
+                        <div class="row">
+                            <div class="col">
+                                <ul class="order_details">
+                                    
+                                    
+                                    <li class="displayAudioBookSummary" style="display: none;"><strong><span class="summaryAddOnTitle">2HA AudioBook:</span></strong><span class="addOnPrice">$19</span></li>
+                                    <li class="displayMembershipSummary" style="display: none;"><strong><span class="summaryOrderBumpTitle">Behind The Scenes Of A $200k / Year Agency:</strong><span class="orderBump">$9</span></li>
+                                    <li class="big"><strong>Total:</strong><span id="grandtotal" class="startPrice">PKR 11,800</span></li>
+                                    <div class="clearfix"></div>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="order_txt">
+                            <p>Immediate access to this product or service is available once payment is approved.</p>
+                        </div>
+                    </div>
+                    <div class="show_mobile">
+                        <div class="row">
+                            <div class="col">
+                                <ul class="order_details">
+                                    
+                                    <li><strong>Your Price Today:</strong><span class="startPrice">PKR $11,800</span></li>
+                                    <li class="displayAudioBookSummary" style="display: none;"><strong>2HA
+                                            AudioBook:</strong><span class="addOnPrice">PKR 11,800</span></li>
+                                    <li class="displayMembershipSummary" style="display: none;"><strong>Behind The
+                                            Scenes Of A $200k / Year Agency:</strong><span class="orderBump">$9</span></li>
+                                    <li class="big"><strong>Total:</strong><span id="grandtotal1" class="startPrice">PKR 11,800</span></li>
+                                    <div class="clearfix"></div>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="order_txt">
+                            <p>Immediate access to this product or service is available once payment is approved.</p>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="action" value="register1.1">
+                    <input type="hidden" id="primaryAddon3" value="no" name="primaryAddon3" />
+                    <input type="hidden" name="paymentMethod" value="stripe" />
+                    <input type="hidden" id="vid" name="vid" value="afShqhaVkJPQLGBv2nycOP1Ivmx">
+                    <button class="place_my_order">PLACE MY ORDER &nbsp; <i aria-hidden="true"
+                            class="fa fa-mouse-pointer"></i></button>
+                    <p class="clickonce">(Please Click Only Once And Allow To Process)</p>
+                    <div class="text-center mb-2"> <img alt="secure"
+                            src="https://www.eway.com.au/developer/payment-code/verified-seal.php?img=12&size=3&pid=1fb97c52-a710-45c0-a208-bc31178a8acb&theme=1" />
+                    </div>
+                    <p class="securely">We securely process payments with<br> 256-bit security encryption</p>
+
+
+
+                </div>
+            </div>
+        </form>
+    </div>
+    
+</body>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script> -->
+
+<script src="js/countries.js"></script>
+<script src="js/main.js"></script>
+
+<script>
+
+    var startPrice = 29;
+    var orderBump = 9;
+    var addOnPrice = 19;
+
+    $(".customRadio").change(function () {
+        $(".custom-checkbox4-container").removeClass('active');
+        if ($(this).is(':checked')) {
+            $(this).parent().addClass('active');
+        } else {
+            $(this).parent().removeClass('active');
+        }
+
+        if ($(this).val() == 'selected') {
+            $(".displayAudioBookSummary").show();
+        } else {
+            $(".displayAudioBookSummary").hide();
+        }
+
+        calculateSum();
+       
+    });
+    $('.yesaddtoorder').click(function () {
+        $('.yesaddtoorder').toggleClass('yesaddtoorderToggle');
+        $('.recommended').toggleClass('recommendedToggle');
+
+
+        var $this = $(this);
+        if ($this.hasClass('yesaddtoorderToggle')) {
+            $this.text('Added To Order');
+            $(".displayMembershipSummary").show();
+            $('#customCheck2').prop('checked', true);
+        } else {
+            $this.text('Yes! Add To My Order  ');
+            $(".displayMembershipSummary").hide();
+            $('#customCheck2').prop('checked', false);
+        }
+        calculateSum();
+
+    });
+
+
+    $("#customCheck2").change(function () {
+        $('.yesaddtoorder').toggleClass('yesaddtoorderToggle');
+        $('.recommended').toggleClass('recommendedToggle');
+
+
+        if ($('.yesaddtoorder').hasClass('yesaddtoorderToggle')) {
+            $('.yesaddtoorder').text('Added To Order');
+            $(".displayMembershipSummary").show();
+            $("#primaryAddon3").val('yes');
+            $(".yesaddtoorder").attr('opt-val', 'yes');
+        } else {
+            $('.yesaddtoorder').text('Yes! Add To My Order ');
+            $(".displayMembershipSummary").hide();
+            $("#primaryAddon3").val('no');
+            $(".yesaddtoorder").attr('opt-val', 'no');
+        }
+        calculateSum();
+
+    });
+
+  
+
+
+    $(".yesaddtoorder").click(function () {
+        var selectedVal = $(this).attr('opt-val');
+        $(this).attr('opt-val', selectedVal == 'yes' ? 'no' : 'yes');
+        if (selectedVal == 'no') {
+            //Opted yes
+            $("#primaryAddon3").val('yes');
+        } else {
+            $("#primaryAddon3").val('no');
+        }
+        calculateSum();
+    });
+
+    function myFunction() {
+        var btn = document.getElementById("aadtomyOrder");
+        if (btn.value == "YES! ADD TO MY ORDER") {
+            $("#primaryAddon3").val('yes');
+            btn.value = "Added To Your Order";
+            btn.innerHTML = "Added To Your Order";
+            btn.className = "addtoorder_btn_active_btn"
+        } else {
+            $("#primaryAddon3").val('no');
+            btn.value = "YES! ADD TO MY ORDER";
+            btn.innerHTML = "YES! ADD TO MY ORDER";
+            btn.className = "addtoorder_btn"
+        }
+        calculateSum();
+    }
+
+    function calculateSum() {
+        var totalPrice = startPrice;
+        if ($("input[name='addon']:checked").val() == 'selected') {
+            // totalPrice = 12.92;
+            totalPrice = totalPrice + addOnPrice
+        }
+        
+        if ($("#primaryAddon3").val() == 'yes') {
+            // totalPrice += 27;
+            totalPrice = totalPrice + orderBump
+
+        }
+       
+
+        $("#subtotal, #grandtotal, #subtotal1, #grandtotal1").html('$' + totalPrice.toFixed(2));
+        
+    }
+
+   
+</script>
+
+
+
+</html>
